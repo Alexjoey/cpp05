@@ -11,46 +11,19 @@
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
+#include "Form.hpp"
 #include <exception>
 
 int	main(void)
 {
-	Bureaucrat ben("ben", 0);
-	try
-	{
-		ben--;
-	}
-	catch (const std::exception &e)
-	{
-		std::cout << "Exception caught: " << e.what() << std::endl;
-	}
-	std::cout << ben;
-	try
-	{
-		ben++;
-	}
-	catch (const std::exception &e)
-	{
-		std::cout << "Exception caught: " << e.what() << std::endl;
-	}
-	std::cout << ben;
-	Bureaucrat yom("yom", 155);
-	std::cout << yom;
-	try
-	{
-		yom++;
-	}
-	catch (const std::exception &e)
-	{
-		std::cout << "Exception caught: " << e.what() << std::endl;
-	}
-	try
-	{
-		yom--;
-	}
-	catch (const std::exception &e)
-	{
-		std::cout << "Exception caught: " << e.what() << std::endl;
-	}
-	std::cout << yom;
+	Bureaucrat	ben("ben", 1);
+	Form		form1("form1", 120, 120);
+	Bureaucrat	yom("yom", 140);
+	Form		form2("form2", 120, 120);
+	std::cout << ben << form1;
+	ben.signForm(form1);
+	std :: cout << ben << form1;
+	std::cout << yom << form2;
+	yom.signForm(form2);
+	std::cout << yom << form2;
 }

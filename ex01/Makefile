@@ -14,7 +14,7 @@ SRC_DIR	= ./src
 INC_DIR	= ./inc
 OBJ_DIR	= ./obj
 
-SRCS	= ./main.cpp ./Bureaucrat.cpp
+SRCS	= ./main.cpp ./Bureaucrat.cpp ./Form.cpp
 OBJS	= $(addprefix $(OBJ_DIR)/, $(SRCS:.cpp=.o))
 CC		= c++
 CFLAGS	= -Wextra -Wall -Werror -std=c++98

@@ -14,6 +14,9 @@
 
 #include <iostream>
 #include <exception>
+#include "Form.hpp"
+
+class Form;
 
 class Bureaucrat
 {
@@ -27,10 +30,11 @@ public:
 	~Bureaucrat();
 
 	std::string	getName() const;
-	int	getGrade() const;
-	void operator++(int);
-	void operator--(int);
+	int		getGrade() const;
+	void	operator++(int);
+	void	operator--(int);
 
+	void	signForm(Form& form);
 	class GradeTooHighException: public std::exception{
 	virtual const char*	what() const throw();};
 
@@ -41,7 +45,5 @@ private:
 	const std::string	_name;
 	int					_grade;
 
-
 };
-
 std::ostream& operator<< (std::ostream& os, const Bureaucrat& bureaucrat);
