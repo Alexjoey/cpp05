@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Form.cpp                                           :+:      :+:    :+:   */
+/*   AForm.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amylle <alexm@live.be>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 16:24:00 by amylle            #+#    #+#             */
-/*   Updated: 2025/02/11 16:33:15 by amylle           ###   ########.fr       */
+/*   Updated: 2025/02/20 18:32:26 by amylle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,28 @@ AForm::AForm(const std::string& name, int gradeToSign, int gradeToExecute):
 	std::cout << "Made " << _name << "form with sign grade: " << _signGrade;
 	std::cout << ", and execute grade: " << _executeGrade << std::endl;
 }
-	
+
+AForm::AForm(const AForm& copy):
+	_name(copy._name),
+	_isSigned(copy._isSigned),
+	_signGrade(copy._signGrade),
+	_executeGrade(copy._executeGrade)
+{
+	std::cout << "AForm copy constructor called\n";
+}
+
 void AForm::beSigned(const Bureaucrat& bureaucrat)
 {
 	if (_isSigned == false && bureaucrat.getGrade() > this->_signGrade)
 		throw GradeTooLowException();
 	else
 		_isSigned = true;
+}
+
+AForm&	AForm::operator=(const AForm& copy)
+{
+	this->_isSigned = copy._isSigned;
+	return (*this);
 }
 
 AForm::~AForm()
@@ -64,6 +79,15 @@ int	AForm::getExecuteGrade() const
 	return (this->_executeGrade);
 }
 
+void	AForm::tryExecuting(Bureaucrat const &executor) const
+{
+	if (this->_isSigned == false)
+		throw AForm::NotSignedException();
+	if (this->_executeGrade < executor.getGrade())
+		throw Bureaucrat::GradeTooLowException();
+	execute(executor);
+}
+
 const char* AForm::GradeTooHighException::what() const throw()
 {
 	return ("Grade too high.");
@@ -72,6 +96,11 @@ const char* AForm::GradeTooHighException::what() const throw()
 const char* AForm::GradeTooLowException::what() const throw()
 {
 	return ("Grade too low.");
+}
+
+const char* AForm::NotSignedException::what() const throw()
+{
+	return ("Form is not signed.");
 }
 
 std::ostream& operator<< (std::ostream& os, const AForm& form)

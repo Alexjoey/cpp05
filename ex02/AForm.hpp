@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Form.hpp                                           :+:      :+:    :+:   */
+/*   AForm.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amylle <alexm@live.be>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 15:20:51 by amylle            #+#    #+#             */
-/*   Updated: 2025/02/11 16:28:00 by amylle           ###   ########.fr       */
+/*   Updated: 2025/02/20 18:24:17 by amylle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,20 @@ public:
 	bool			getSigned() const;
 	int				getSignGrade() const;
 	int				getExecuteGrade() const;
-	virtual	void	execute(Bureaucrat const &executor) const = 0;
+
+	void			tryExecuting(Bureaucrat const &executor) const;
 
 	class GradeTooHighException: public std::exception{
 	virtual const char*	what() const throw();};
 
 	class GradeTooLowException: public std::exception{
 	virtual const char*	what() const throw();};
+	
+	class NotSignedException: public std::exception{
+	virtual const char*	what() const throw();};
 
 private:
+	virtual	void	execute(Bureaucrat const &executor) const = 0;
 	const std::string	_name;
 	bool				_isSigned;
 	const int			_signGrade;

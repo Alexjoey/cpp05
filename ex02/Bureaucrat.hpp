@@ -6,7 +6,7 @@
 /*   By: amylle <alexm@live.be>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 17:19:58 by amylle            #+#    #+#             */
-/*   Updated: 2025/02/11 14:50:19 by amylle           ###   ########.fr       */
+/*   Updated: 2025/02/20 18:31:57 by amylle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ public:
 	void	operator--(int);
 
 	void	signForm(AForm& form);
+	void	executeForm(AForm const& form);
 	class GradeTooHighException: public std::exception{
 	virtual const char*	what() const throw();};
 

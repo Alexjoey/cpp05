@@ -6,12 +6,12 @@
 /*   By: amylle <alexm@live.be>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 17:29:03 by amylle            #+#    #+#             */
-/*   Updated: 2025/02/11 14:50:17 by amylle           ###   ########.fr       */
+/*   Updated: 2025/02/20 18:31:56 by amylle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
-#include "Form.hpp"
+#include "AForm.hpp"
 #include <exception>
 
 Bureaucrat::Bureaucrat(): _name("default"), _grade(150)
@@ -72,18 +72,32 @@ void	Bureaucrat::operator--(int)
 		this->_grade--;
 }
 
-void	Bureaucrat::signForm(Form& form)
+void	Bureaucrat::signForm(AForm& aform)
 {
 	try
 	{
-		form.beSigned(*this);
+		aform.beSigned(*this);
 	}
 	catch (const std::exception &e)
 	{
-		std::cout << this->_name << " coudln't sign " << form.getName() << " because: " << e.what() << std::endl;
+		std::cout << this->_name << " coudln't sign " << aform.getName() << " because: " << e.what() << std::endl;
 		return ;
 	}
-	std::cout << this->getName() << " signed " << form.getName() << std::endl;
+	std::cout << this->getName() << " signed " << aform.getName() << std::endl;
+}
+
+void	Bureaucrat::executeForm(AForm const& form)
+{
+	try
+	{
+		form.tryExecuting(*this);
+	}
+	catch (const std::exception &e)
+	{
+		std::cout << this->_name << " couldn't execute " << form.getName() << " because: " << e.what() << std::endl;
+		return ;
+	}
+	std::cout << this->_name << " has executed " << form.getName() << std::endl;
 }
 
 std::ostream& operator<< (std::ostream& os, const Bureaucrat& bureaucrat)
