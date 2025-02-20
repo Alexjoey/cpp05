@@ -14,7 +14,7 @@
 
 Form::Form(): _name("default"), _isSigned(false), _signGrade(150), _executeGrade(150)
 {
-	std::cout << "Made " << _name << "form with sign grade: " << _signGrade;
+	std::cout << "Made " << _name << " form with sign grade: " << _signGrade;
 	std::cout << ", and execute grade: " << _executeGrade << std::endl;
 }
 
@@ -28,10 +28,26 @@ Form::Form(const std::string& name, int gradeToSign, int gradeToExecute):
 		throw GradeTooLowException();
 	if (gradeToSign < 1)
 		throw GradeTooHighException();
-	std::cout << "Made " << _name << "form with sign grade: " << _signGrade;
+	std::cout << "Made " << _name << " form with sign grade: " << _signGrade;
 	std::cout << ", and execute grade: " << _executeGrade << std::endl;
 }
-	
+
+Form::Form(const Form& copy):
+	_name(copy._name),
+	_isSigned(copy._isSigned),
+	_signGrade(copy._signGrade),
+	_executeGrade(copy._executeGrade)
+{
+	std::cout << "Form copy constructor called\n";
+}
+
+Form&	Form::operator=(const Form& copy)
+{
+	if (this != &copy)
+		return (*this);
+	return (*this);
+}
+
 void Form::beSigned(const Bureaucrat& bureaucrat)
 {
 	if (_isSigned == false && bureaucrat.getGrade() > this->_signGrade)
@@ -42,6 +58,7 @@ void Form::beSigned(const Bureaucrat& bureaucrat)
 
 Form::~Form()
 {
+	std::cout << "Destroyed form\n";
 }
 
 std::string	Form::getName() const
