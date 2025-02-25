@@ -56,14 +56,14 @@ static AForm* makeRoboForm(const std::string& target)
 
 AForm	*Intern::makeForm(const std::string& form_name, const std::string& target)
 {
-	AForm *(*make_forms[])(const std::string &target) = {&makeShrubForm, &makeRoboForm, &makePresForm};
-	std::string form_names[] = {"ShrubberyCreationForm", "RobotomyRequestForm", "PresidentialPardonForm"};
+	AForm *(*makeFormFunctions[])(const std::string &target) = {&makeShrubForm, &makeRoboForm, &makePresForm};
+	std::string formNames[] = {"ShrubberyCreationForm", "RobotomyRequestForm", "PresidentialPardonForm"};
 	for (int i = 0; i < 3; i++)
 	{
-		if (form_name == form_names[i])
+		if (form_name == formNames[i])
 		{
 			std::cout << "Intern is creating a " << form_name << std::endl;
-			return (make_forms[i](target));
+			return (makeFormFunctions[i](target));
 		}
 	}
 	std::cout << "Intern cant make: " << form_name << std::endl;
