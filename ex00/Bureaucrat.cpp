@@ -6,7 +6,7 @@
 /*   By: amylle <alexm@live.be>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 17:29:03 by amylle            #+#    #+#             */
-/*   Updated: 2025/02/11 14:50:17 by amylle           ###   ########.fr       */
+/*   Updated: 2025/05/13 23:53:49 by amylle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,12 @@ Bureaucrat::Bureaucrat(): _name("default"), _grade(150)
 	std::cout << "Made Bureaucrat named: " << _name << ", with grade: " << _grade << std::endl;
 }
 
-Bureaucrat::Bureaucrat(const std::string &name, const int grade): _name(name)
+Bureaucrat::Bureaucrat(const std::string &name, const int grade): _name(name), _grade(grade)
 {
 	if (grade > 150)
-	{
-		std::cout << "cannot initialize grade of " << name << " to be lower than 150, will be set to 150\n";
-		this->_grade = 150;
-	}
+		throw (GradeTooLowException());
 	if (grade < 1)
-	{
-		std::cout << "cannot initialize grade of " << name << " to be higher than 1, will be set to 1\n";
-		this->_grade = 1;
-	}
+		throw (GradeTooLowException());
 	std::cout << "Made Bureaucrat named: " << _name << ", with grade: " << _grade << std::endl;
 }
 
@@ -61,18 +55,18 @@ int	Bureaucrat::getGrade() const
 
 void Bureaucrat::operator++(int)
 {
-	if (this->_grade == 150)
+	if (this->_grade <= 1)
 		throw (GradeTooHighException());
 	else
-		this->_grade++;
+		this->_grade--;
 }
 
 void Bureaucrat::operator--(int)
 {
-	if (this->_grade == 1)
+	if (this->_grade >= 150)
 		throw (GradeTooLowException());
 	else
-		this->_grade--;
+		this->_grade++;
 }
 
 std::ostream& operator<< (std::ostream& os, const Bureaucrat& bureaucrat)

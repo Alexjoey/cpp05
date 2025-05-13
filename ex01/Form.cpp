@@ -6,7 +6,7 @@
 /*   By: amylle <alexm@live.be>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 16:24:00 by amylle            #+#    #+#             */
-/*   Updated: 2025/02/11 16:33:15 by amylle           ###   ########.fr       */
+/*   Updated: 2025/05/13 23:58:08 by amylle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ Form::Form(const std::string& name, int gradeToSign, int gradeToExecute):
 	_signGrade(gradeToSign),
 	_executeGrade(gradeToExecute)
 {
-	if (gradeToSign > 150)
+	if (gradeToSign > 150 || gradeToExecute > 150)
 		throw GradeTooLowException();
-	if (gradeToSign < 1)
+	if (gradeToSign < 1 || gradeToExecute < 1)
 		throw GradeTooHighException();
 	std::cout << "Made " << _name << " form with sign grade: " << _signGrade;
 	std::cout << ", and execute grade: " << _executeGrade << std::endl;
@@ -95,6 +95,6 @@ std::ostream& operator<< (std::ostream& os, const Form& form)
 {
 	os << form.getName() << ", Form sign grade: " << form.getSignGrade();
 	os << ", Form exectute grade: " << form.getExecuteGrade();
-	os << ", is executed: " << form.getSigned() << std::endl;
+	os << ", is signed: " << form.getSigned() << std::endl;
 	return (os);
 }

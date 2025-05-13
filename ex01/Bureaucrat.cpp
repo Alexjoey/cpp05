@@ -58,18 +58,18 @@ int	Bureaucrat::getGrade() const
 
 void	Bureaucrat::operator++(int)
 {
-	if (this->_grade == 150)
+	if (this->_grade <= 1)
 		throw (GradeTooHighException());
 	else
-		this->_grade++;
+		this->_grade--;
 }
 
 void	Bureaucrat::operator--(int)
 {
-	if (this->_grade == 1)
+	if (this->_grade >= 150)
 		throw (GradeTooLowException());
 	else
-		this->_grade--;
+		this->_grade++;
 }
 
 void	Bureaucrat::signForm(Form& form)
