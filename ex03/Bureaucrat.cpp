@@ -6,7 +6,7 @@
 /*   By: amylle <alexm@live.be>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 17:29:03 by amylle            #+#    #+#             */
-/*   Updated: 2025/02/20 18:31:56 by amylle           ###   ########.fr       */
+/*   Updated: 2025/05/14 00:13:40 by amylle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,18 +58,18 @@ int	Bureaucrat::getGrade() const
 
 void	Bureaucrat::operator++(int)
 {
-	if (this->_grade == 150)
+	if (this->_grade <= 1)
 		throw (GradeTooHighException());
 	else
-		this->_grade++;
+		this->_grade--;
 }
 
 void	Bureaucrat::operator--(int)
 {
-	if (this->_grade == 1)
+	if (this->_grade >= 150)
 		throw (GradeTooLowException());
 	else
-		this->_grade--;
+		this->_grade++;
 }
 
 void	Bureaucrat::signForm(AForm& aform)
